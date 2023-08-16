@@ -1,0 +1,27 @@
+services:
+
+  server:
+    build: .
+    container_name: "server"
+    depends_on:
+      - database
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+
+  database:
+    image: mariadb:11.0.3
+    container_name: "database"
+    restart:  always
+    environment:
+      MARIADB_HOST: database
+      MARIADB_DATABASE: 'blogs_database'
+      MARIADB_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mariadb_volume:/var/lib/mariadb
+
+volumes:
+  mariadb_volume:
