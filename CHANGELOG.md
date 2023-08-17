@@ -1,8 +1,4 @@
-Initial codebase which contains `db_handler` to manage operations 
-with the database, `models` which define data models for 
-entities present in the database.
+Added table creation in `db_hander.py` and as startup code in 
+`main.py`
 
-`docker-compose.yml` is used for deployment of the backend.
-
-`requirements.txt` is used to install Python dependencies for the 
-backend.
+Added SQL script for creating `blogs` table
