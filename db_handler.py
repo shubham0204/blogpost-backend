@@ -3,6 +3,8 @@ from models import Blog
 import mariadb
 import os
 import time
+import random
+import string
 
 class DatabaseHandler:
 
@@ -18,8 +20,8 @@ class DatabaseHandler:
         self.__create_tables()
 
     def insert_blog( self , blog: Blog ) -> bool:
-        query = "insert into blogs( title , content ) values( '{}' , '{}' );".format(
-                blog.title , blog.content )
+        query = "insert into blogs( id , title , content ) values( '{}' , '{}' , '{}' );".format(
+                DatabaseHandler.__generate_uid() , blog.title , blog.content )
         self.cursor.execute( query )
         self.connection.commit()
         return self.cursor.affected_rows > 0
@@ -33,7 +35,7 @@ class DatabaseHandler:
             blogs.append( Blog( id=blog_id , title=blog_title , content=blog_content ) )
         return blogs
 
-    def get_blog_from_id(self, blog_id: int) -> Blog:
+    def get_blog_from_id(self, blog_id: str) -> Blog:
         self.cursor.execute(
             "select * from blogs where id={};".format(
                 blog_id
@@ -41,14 +43,14 @@ class DatabaseHandler:
         for ( _ , blog_title , blog_content ) in self.cursor:
             return Blog( id=blog_id , title=blog_title , content=blog_content )
 
-    def update_blog(self, blog_id: int, new_blog: Blog) -> bool:
+    def update_blog(self, blog_id: str, new_blog: Blog) -> bool:
         query = "update blogs set title='{}', content='{}' where id={};".format(
             new_blog.title, new_blog.content, blog_id)
         self.cursor.execute(query)
         self.connection.commit()
         return self.cursor.affected_rows > 0
 
-    def delete_blog(self, blog_id: int) -> bool:
+    def delete_blog(self, blog_id: str) -> bool:
         query = "delete from blogs where id={};".format( blog_id )
         self.cursor.execute(query)
         self.connection.commit()
@@ -58,12 +60,16 @@ class DatabaseHandler:
         self.connection.close()
 
     def __create_tables( self ):
-        create_tables_script = DatabaseHandler.__read_sql_script( "create_tables.sql" )
+        create_tables_script = DatabaseHandler.__read_sql_script( "create_blog_table.sql" )
         self.cursor.execute( create_tables_script )
         self.connection.commit()
 
     @staticmethod
     def __read_sql_script( script_file_name ) -> str:
         return open(os.path.join(DatabaseHandler.__sql_scripts_dir, script_file_name) , "r" ).read()
+
+    @staticmethod
+    def __generate_uid() -> str:
+        return ''.join(random.choices(string.ascii_uppercase + string.digits, k=20))
 
 

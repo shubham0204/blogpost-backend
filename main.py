@@ -12,6 +12,8 @@ Project TODO:
 2. Add user authentication
 3. Add JWT
 4. Add HTTP header caching
+5. (Security) Add UID in ids
+6. Return appropriate error codes
 """
 
 @asynccontextmanager
