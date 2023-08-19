@@ -1,1 +1,1 @@
-Replaced incremental ID with random string in `blogs` table
+Added user table in database and CRUD operations for users
