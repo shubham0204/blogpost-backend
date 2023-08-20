@@ -1,1 +1,2 @@
-Added user table in database and CRUD operations for users
+Added a new package `database` with operations for `users` and 
+`blogs` performed in `UserOps` and `BlogOps` respectively.
