@@ -21,7 +21,6 @@ user_ops = UserOps( db_connection )
 
 """
 - Server optimization
-1. Add JWT
 2. Add HTTP header caching
 3. Return appropriate error codes
 4. Database realtime updates
@@ -30,9 +29,6 @@ user_ops = UserOps( db_connection )
 - Database optimization
 1. Store passwords securely in DB
 2. Add indexes
-
-- Security
-1. Add rate limiter for preventing brute-force and DDoS attacks
 
 - Documentation
 1. Add FastAPI docs
