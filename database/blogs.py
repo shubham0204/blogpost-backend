@@ -13,8 +13,8 @@ class BlogOps:
         self.cursor = self.connection.cursor()
 
     def insert_blog( self , blog: Blog ) -> bool:
-        query = "insert into blogs( id , title , content ) values( '{}' , '{}' , '{}' );".format(
-                generate_uid() , blog.title , blog.content )
+        query = "insert into blogs( id , author_id, title , content ) values( '{}' , '{}' , '{}' , '{}' );".format(
+                generate_uid() , blog.author_id , blog.title , blog.content )
         self.cursor.execute( query )
         self.connection.commit()
         return self.cursor.affected_rows > 0
@@ -24,8 +24,8 @@ class BlogOps:
             "select * from blogs;"
             )
         blogs = []
-        for (blog_id, blog_title, blog_content) in self.cursor:
-            blogs.append( Blog( id=blog_id , title=blog_title , content=blog_content ) )
+        for (blog_id, author_id, blog_title, blog_content) in self.cursor:
+            blogs.append( Blog( id=blog_id, author_id=author_id , title=blog_title , content=blog_content ) )
         return blogs
 
     def get_blog_from_id(self, blog_id: str) -> Blog:
@@ -33,8 +33,8 @@ class BlogOps:
             "select * from blogs where id='{}';".format(
                 blog_id
             ) )
-        for ( _ , blog_title , blog_content ) in self.cursor:
-            return Blog( id=blog_id , title=blog_title , content=blog_content )
+        for ( _ , author_id, blog_title , blog_content ) in self.cursor:
+            return Blog( id=blog_id, author_id=author_id , title=blog_title , content=blog_content )
 
     def update_blog(self, blog_id: str, new_blog: Blog) -> bool:
         query = "update blogs set title='{}', content='{}' where id='{}';".format(

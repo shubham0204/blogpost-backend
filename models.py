@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class Blog( BaseModel ):
     id: Optional[str] = None
+    author_id: str
     title: str
     content: str
 

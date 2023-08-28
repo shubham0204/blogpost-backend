@@ -1,5 +1,5 @@
 import mariadb
-
+from typing import Optional
 from models import User
 from .utils import generate_uid
 
@@ -10,12 +10,13 @@ class UserOps:
         self.connection = connection
         self.cursor = self.connection.cursor()
 
-    def insert_user( self , user: User ) -> bool:
+    def insert_user( self , user: User ) -> tuple[ bool , str ]:
+        user_id = generate_uid()
         query = "insert into users( id , name, email_address, password , tagline , join_date ) values( '{}', '{}', '{}' , '{}' , '{}', '{}' );".format(
-            generate_uid(), user.name, user.email_address, user.password, user.tagline, user.join_date)
+            user_id, user.name, user.email_address, user.password, user.tagline, user.join_date)
         self.cursor.execute(query)
         self.connection.commit()
-        return self.cursor.affected_rows > 0
+        return self.cursor.affected_rows > 0 , user_id
 
     def get_user_from_id(self, user_id: str) -> User:
         self.cursor.execute(
@@ -37,6 +38,12 @@ class UserOps:
         self.cursor.execute(query)
         self.connection.commit()
         return self.cursor.affected_rows > 0
+
+    def get_name_from_id( self , user_id: str ) -> Optional[ str ]:
+        query = "select name from users where id='{}'".format( user_id )
+        self.cursor.execute( query )
+        names = list( self.cursor )
+        return names[0] if len( names ) > 0 else None
 
 
 

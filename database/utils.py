@@ -1,9 +1,5 @@
 import os
-import random
-import string
-
 import mariadb
-
 
 def create_db_connection() -> mariadb.Connection:
     return mariadb.connect(host="database", user='root', password='root', database='blogs_database')
@@ -15,14 +11,18 @@ def init_db( connection: mariadb.Connection ):
     create_tables( connection )
 
 def create_tables( connection: mariadb.Connection ):
-    for script_path in os.listdir( "database/sql_scripts" ):
-        create_tables_script = read_sql_script( script_path )
+    scripts_run_seq = [
+        "create_users_table.sql" ,
+        "create_blogs_table.sql"
+    ]
+    for script_filename in scripts_run_seq:
+        create_tables_script = read_sql_script( script_filename )
         connection.cursor().execute( create_tables_script )
         connection.commit()
-        print( f"Executed { script_path }..." )
+        print( f"Executed { script_filename }..." )
 
 def generate_uid() -> str:
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=20))
+    return os.urandom( 10 ).hex()
 
 def read_sql_script( script_file_name ) -> str:
     return open(os.path.join( "database/sql_scripts" , script_file_name) , "r" ).read()
