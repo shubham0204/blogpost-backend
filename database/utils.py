@@ -1,5 +1,7 @@
 import os
+
 import mariadb
+
 
 def create_db_connection() -> mariadb.Connection:
     return mariadb.connect(host="database", user='root', password='root', database='blogs_database')

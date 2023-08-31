@@ -3,9 +3,10 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+
 class Blog( BaseModel ):
     id: Optional[str] = None
-    author_id: str
+    author_id: Optional[str] = None
     title: str
     content: str
 

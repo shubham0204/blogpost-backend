@@ -1,5 +1,7 @@
-import mariadb
 from typing import Optional
+
+import mariadb
+
 from models import User
 from .utils import generate_uid
 

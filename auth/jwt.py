@@ -1,7 +1,7 @@
-import hmac
-import time
 import base64
 import hashlib
+import hmac
+import time
 
 secret = b'E\xd0d\xb84s.A\x93Ko\x95=\x82\xa4D\xd8\xbb\xbe.|\x1e\x11\xc2#\xc8f<\x89/\xc3\x9c'
 

@@ -2,6 +2,7 @@ services:
 
   server:
     build: .
+    image: blogpost-backend-server
     container_name: "server"
     depends_on:
       - database
@@ -13,7 +14,7 @@ services:
   database:
     image: mariadb:11.0.3
     container_name: "database"
-    restart:  always
+    restart: always
     environment:
       MARIADB_HOST: database
       MARIADB_DATABASE: 'blogs_database'
