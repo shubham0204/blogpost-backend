@@ -2,7 +2,7 @@ import time
 from contextlib import asynccontextmanager
 
 import uvicorn
-from fastapi import APIRouter, Request
+from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import FastAPI
 from fastapi import HTTPException
@@ -10,11 +10,11 @@ from fastapi import Header
 
 from auth import generate_jwt_token
 from auth import validate_jwt_token
+from database import Blog, User
 from database import BlogOps, UserOps
 from database import create_db_connection, init_db, release_db_connection
-from models import Blog, User
 
-time.sleep( 5 )
+time.sleep( 10 )
 db_connection = create_db_connection()
 blog_ops = BlogOps( db_connection )
 user_ops = UserOps( db_connection )

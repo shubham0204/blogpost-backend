@@ -28,27 +28,23 @@ $ python main.py
 
 ### Performance
 
-- [ ] HTTP Header Caching
-- [ ] Add backend logging with ELF stack
+- [ ] HTTP Header Caching with Redis
 
 ### Authentication
 
-- [x] [JWT authentication](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb)
+- [x] [JWT authentication](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb) on (most) endpoints
 
 ### Database
 
 - [ ] Add indexes for faster retrieval of blogs
-- [ ] Webhook-based realtime database updates
 
 ### Security
 
 - [x] [Databases use UUIDs as primary keys](https://www.mysqltutorial.org/mysql-uuid/), instead of consecutive integers to
  avoid incremental access of entities if a table is compromised in an attack
-
 - [x] [All random UUIDs are generated with cryptographically safe](https://crypto.stackexchange.com/questions/39186/what-does-it-mean-for-a-random-number-generator-to-be-cryptographically-secure)
 RNGs i.e. with `os.urandom`
-
-- [ ] Rate limiters are installed to each endpoint to prevent 
+- [x] Rate limiters are installed to each endpoint to prevent 
 brute-force and DDoS attacks
 
 ### Deployment

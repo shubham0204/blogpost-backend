@@ -1,3 +1,2 @@
-- Added `verify_token` method as `APIRouter` dependency in `main.py`
-- Set `author_id` as `Optional` in `models.py`
+- Added `rate_limiter.py` in `reverse-proxy`
 - Optimized imports

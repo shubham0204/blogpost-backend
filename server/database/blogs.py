@@ -2,7 +2,7 @@ from typing import List
 
 import mariadb
 
-from models import Blog
+from .models import Blog
 from .utils import generate_uid
 
 
